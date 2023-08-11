@@ -1,15 +1,13 @@
+import { column, beforeSave, BaseModel, computed } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel, hasMany, HasMany, computed } from '@ioc:Adonis/Lucid/Orm'
-import Review from './Review'
 
 export enum Role {
   Admin = 'A',
-  Student = 'S',
-  Assistant = 'As',
+  User = 'U',
 }
 
-export default class User extends BaseModel {
+class User extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
@@ -18,9 +16,6 @@ export default class User extends BaseModel {
 
   @column()
   public name: string
-
-  @column()
-  public studentCode: string
 
   @column({
     prepare: (value) => {
@@ -33,18 +28,18 @@ export default class User extends BaseModel {
       return JSON.parse(value)
     },
   })
-  public roles: Role[]
+  public roles: any
 
   @computed()
   public get highestRole() {
-    const orderedRoles = [Role.Admin, Role.Assistant, Role.Student]
+    const orderedRoles = [Role.Admin, Role.User]
 
     for (const role of orderedRoles) {
       if (this.roles.includes(role)) {
         return role
       }
     }
-    return 'S'
+    return 'U'
   }
 
   @column({ serializeAs: null })
@@ -59,11 +54,6 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasMany(() => Review, {
-    foreignKey: 'user_id',
-  })
-  public reviews: HasMany<typeof Review>
-
   @beforeSave()
   public static async hashPassword(authentication: User) {
     if (authentication.$dirty.password) {
@@ -71,3 +61,12 @@ export default class User extends BaseModel {
     }
   }
 }
+
+User['findForAuth'] = async function (uids: string[], uidValue: string) {
+  var userUid = uidValue.replace(/%/g, '')
+  return this.query()
+    .where((query) => uids.map((uid) => query.orWhere(uid, 'ILIKE', userUid)))
+    .firstOrFail()
+}
+
+export default User

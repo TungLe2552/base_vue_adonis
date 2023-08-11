@@ -7,14 +7,14 @@ export default class extends BaseSeeder {
       email: 'admin@admin.com',
       name: 'Admin',
       password: 'admin',
-      roles: [Role.Admin, Role.Assistant, Role.Student],
+      roles: [Role.Admin, Role.User],
     })
 
     await User.create({
-      email: 'as@admin.com',
-      name: 'Assistant',
+      email: 'userTest.com',
+      name: 'user 1',
       password: 'admin',
-      roles: [Role.Assistant, Role.Student],
+      roles: [Role.User],
     })
   }
 }

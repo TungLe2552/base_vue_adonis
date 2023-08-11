@@ -7,7 +7,8 @@
       ></v-img>
       <p class="title text-center">Đăng ký tài khoản</p>
       <v-form @submit.prevent="handleSubmit" style="position: relative; padding: 32px 0">
-        <v-text-field v-model="user.email" class="my-4" label="Tài khoản" :rule="[(v)=> v.length<6 && 'Tối thiểu 6 kí tự']" variant="outlined" autofocus/>
+        <v-text-field v-model="user.email" class="my-4" label="Tài khoản" variant="outlined" autofocus/>
+        <v-text-field v-model="user.name" class="my-4" label="Tên" variant="outlined"/>
         <v-text-field v-model="user.password" class="my-4" label="Mật khẩu" variant="outlined"/>
         <v-text-field v-model="user.confirm_password" class="my-4" label="Nhập lại mật khẩu" variant="outlined"/>
         
@@ -45,7 +46,7 @@ const handleSubmit = async () => {
   }
 }
 const loginFail = ref(true)
-const user = ref({ email: '', password: '', confirm_password:'' })
+const user = ref({ email: '',name:'', password: '', confirm_password:'', role: 'U' })
 </script>
 <style scoped>
 .wrapper {
