@@ -74,7 +74,7 @@ const router = useRoute()
 }
 
 .content-container {
-  min-height: calc(100vh - 201px);
+  min-height: calc(100vh - 250px);
 }
 .white {
   background: white;

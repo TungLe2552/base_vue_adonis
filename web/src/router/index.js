@@ -10,23 +10,37 @@ const router = createRouter({
     {
       path: '/login',
       component: MainLayout,
+      name: 'login',
       meta:{
         menu: false,
         bg:true
       },
       children: [
-        {path: '', component: () => import('@/views/LoginView.vue')}
+        {path: '', component: () => import('@/views/Login.vue')}
       ]
     },
     {
-      path: '/admin/login',
+      path: '/register',
       component: MainLayout,
+      name:'register',
       meta:{
         menu: false,
         bg:true
       },
       children: [
-        {path: '', component: () => import('@/views/AdminLogin.vue')}
+        {path: '', component: () => import('@/views/Register.vue')}
+      ]
+    },
+    {
+      path: '/forgot-password',
+      component: MainLayout,
+      name:'forgot-password',
+      meta:{
+        menu: false,
+        bg:true
+      },
+      children: [
+        {path: '', component: () => import('@/views/ForgotPassword.vue')}
       ]
     },
     {

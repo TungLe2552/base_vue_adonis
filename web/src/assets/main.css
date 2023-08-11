@@ -1,4 +1,4 @@
-document {
+:root {
   --primary-color: #f3c309;
 }
 
@@ -16,19 +16,9 @@ html {
 html::-webkit-scrollbar {
   display: none;
 }
-input {
-  outline: none;
-  border: none;
-  padding: 0 8px;
+a {
+  text-decoration: none;
 }
-.v-pagination__item,
-.v-pagination__first,
-.v-pagination__prev,
-.v-pagination__next,
-.v-pagination__last {
-  margin: 0 !important;
-}
-
 @media (max-width: 750px) {
   body {
     font-size: 80%;
