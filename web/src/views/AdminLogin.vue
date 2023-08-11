@@ -3,7 +3,7 @@
     <v-card class="wrapper">
       <v-img
         style="width: 58px; aspect-ratio: 0.698; margin: 0 auto"
-        src="/images/logo.png"
+        src="/images/logo.svg"
       ></v-img>
       <p class="title">Đăng nhập hệ thống</p>
       <form @submit.prevent="handleSubmit" style="position: relative; padding: 32px 0">

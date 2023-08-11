@@ -14,7 +14,7 @@ const router = useRoute()
           <v-layout>
             <div>
               <router-link to="/">
-                <v-img src="/images/logoEn.png" style="max-width: 90vw"></v-img>
+                <v-img :src="'/images/logo.svg'" style="max-width: 45px"></v-img>
               </router-link>
             </div>
           </v-layout>
@@ -25,12 +25,11 @@ const router = useRoute()
         <div class="circle2"></div>
       </div>
       <div :class="{ white: !router.meta.bg }" style="position: relative">
-        <RedMenu v-if="router.meta.menu" />
-        <nav v-else style="background: #cf1627; height: 67px"></nav>
-        <v-layout class="content-container mx-4">
+        <RedMenu class="menu" v-if="router.meta.menu" />
+        <nav class="menu" v-else style="background: #cf1627; height: 67px"></nav>
+        <v-layout class="content-container px-4">
           <RouterView :key="$route.fullPath" />
         </v-layout>
-
         <Footer></Footer>
       </div>
     </div>
@@ -38,9 +37,15 @@ const router = useRoute()
 </template>
 
 <style scoped>
+.menu{
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 999;
+}
 .layout-container {
   background: #f2f2f2;
-  overflow-y: hidden;
 }
 
 .circle-container {
@@ -69,7 +74,7 @@ const router = useRoute()
 }
 
 .content-container {
-  min-height: calc(100vh - 375px);
+  min-height: calc(100vh - 201px);
 }
 .white {
   background: white;

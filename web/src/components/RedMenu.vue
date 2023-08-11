@@ -1,17 +1,17 @@
 <template>
-  <v-layout class="red-menu">
+  <div class="red-menu">
     <v-layout class="d-flex justify-space-between align-center mx-4">
       <div class="menu-mobie">
         <v-menu open-on-click>
           <template v-slot:activator="{ props }">
-            <v-btn v-bind="props">
+            <v-btn v-bind="props" color="primary">
               <v-icon icon="fa-solid fa-bars"></v-icon>
             </v-btn>
           </template>
 
           <v-list>
-            <v-list-item v-for="menu of menus" :key="menu.title">
-              <router-link :to="menu.path">
+            <v-list-item v-for="menu of menus" :key="menu.name">
+              <router-link :to="{name: menu.name}">
                 <v-list-item-title>{{ menu.title.toUpperCase() }}</v-list-item-title>
               </router-link>
             </v-list-item>
@@ -20,11 +20,11 @@
       </div>
       <nav class="navigation">
         <router-link
-          :to="menu.path"
-          v-for="menu in menus"
+          v-for="menu of menus"
+          :to="{name: menu.name}"
           background="transparent"
-          :key="menu.title"
-          :class="{ active: $router.path === menu.path }"
+          :key="menu.name"
+          :class="{ active: $router.name === menu.name }"
           variant="text"
         >
           {{ menu.title.toUpperCase() }}
@@ -32,7 +32,7 @@
       </nav>
       <UserMenu />
     </v-layout>
-  </v-layout>
+  </div>
 </template>
 
 <script setup>
@@ -43,36 +43,18 @@ import { ref } from 'vue'
 const user = userStore()
 
 const menus = ref([])
-const totalMenus = []
-if (user.hasRole('S')) {
-  totalMenus.push(
-    ...[
-      // { title: 'Điểm thi', path: `/bang-diem` },
-      { title: 'Phúc khảo', path: `/phuc-khao` }
-      // { title: 'Đăng kí thi bù', path: `/dang-ki-thi-bu` }
-    ]
-  )
-}
-
-if (user.hasRole('As')) {
-  totalMenus.push(
-    ...[
-      { title: 'Danh sách phúc khảo', path: `/danh-sach-phuc-khao` }
-      // { title: 'Danh sách thi bù', path: `/danh-sach-thi-bu` }
-    ]
-  )
-}
+const totalMenus = [{ title: 'Home', name: 'home' }]
 
 menus.value = totalMenus
 </script>
+
 <style scoped>
 .red-menu {
   height: 67px;
   background-color: #cf1627;
   display: flex;
   align-items: center;
-  /* padding-right: 20px;
-  padding-left: 20px; */
+  z-index: 999;
   color: white;
   font-weight: bold;
   font-size: 16px;
@@ -81,7 +63,7 @@ a {
   display: inline-block;
   text-decoration: none;
   color: white;
-  padding: 16px 25px;
+  padding: 16px 20px;
   font-weight: 500;
 }
 a:first-child {
@@ -90,18 +72,19 @@ a:first-child {
 .router-link-active {
   color: var(--primary-color);
 }
-@media (min-width: 750px) {
+@media (min-width: 1500px) {
   .menu-mobie {
     display: none;
   }
 }
-@media (max-width: 749px) {
+@media (max-width: 1499px) {
   .navigation {
     display: none;
   }
   a {
     color: #cf1627;
     font-weight: 700;
+    padding: 8px 10px;
   }
 }
 </style>
