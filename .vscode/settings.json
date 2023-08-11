@@ -1,0 +1,9 @@
+{
+    "eslint.workingDirectories": [
+        "./server",
+        "./web"
+    ],
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "vue.inlayHints.optionsWrapper": false
+}
